@@ -4,7 +4,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.interactions.Actions;
-import userdto.UserDTO;
 import userdto.UserDTOWith;
 import userdto.UserDtoLombok;
 
@@ -42,7 +41,7 @@ public class UserHelper extends BaseHelper {
         clickBase(btnYallaLoginForm);
     }
 
-    public void login(UserDTO userDTO) {
+    public void login(UserDtoLombok userDTO) {
         clickBase(btnLoginNavigatorMenu);
         typeTextBase(inputEmailLoginForm, userDTO.getEmail());
         typeTextBase(inputPasswordLoginForm, userDTO.getPassword());
@@ -55,6 +54,7 @@ public class UserHelper extends BaseHelper {
         typeTextBase(inputPasswordLoginForm, userDTO.getPassword());
         clickBase(btnYallaLoginForm);
     }
+
 
     public boolean validatePopUpMessageSuccessAfterLogin() {
         return isTextEqual(textSuccessLoginPopUp, "Logged in success");
