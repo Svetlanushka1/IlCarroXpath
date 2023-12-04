@@ -11,9 +11,9 @@ import userdto.UserDtoLombok;
 import utils.RandomUtils;
 
 public class BaseTest {
-    @Listeners(TestNGListener.class)
+    @Listeners(value = TestNGListener.class)
       // static ApplicationManager app = new ApplicationManager();
-        RandomUtils randomUtils = new RandomUtils();
+        RandomUtils randomUtils;
 
         Logger logger = LoggerFactory.getLogger(BaseTest.class);
 
@@ -22,8 +22,12 @@ public class BaseTest {
                 .password("Haifa082022$")
                 .build();
 
+    public BaseTest() {
+        randomUtils = new RandomUtils();
+    }
 
-        @BeforeSuite(alwaysRun = true)
+
+    @BeforeSuite(alwaysRun = true)
         public void setup(){
             logger.info("open browser");
             ApplicationManager.init();

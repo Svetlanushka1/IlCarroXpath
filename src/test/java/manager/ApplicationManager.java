@@ -40,30 +40,33 @@ public class ApplicationManager {
         logger.warn(browser);
         logger.warn(Browser.CHROME.browserName());
         logger.warn(Browser.FIREFOX.browserName());
-//        ChromeOptions options = new ChromeOptions();
-//        options.addArguments("--headless=new");
-//        WebDriver original = new ChromeDriver(options);
-//        WebDriverListener listener = new WDListener();
-//        driver = new EventFiringDecorator(listener).decorate(original);
+        /*
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--headless=new");
+       WebDriver original = new ChromeDriver(options);
+        WebDriverListener listener = new WDListener();
+        driver = new EventFiringDecorator(listener).decorate(original);
+        */
+
         if (browser.equals(Browser.CHROME.browserName())) {
             ChromeOptions options = new ChromeOptions();//new options
             options.addArguments("--headless=new");//new object of chromeDriver
             WebDriver original = new ChromeDriver(options);//made decoration up on the driver
             WebDriverListener listener = new WDListener();
-            driver = new EventFiringDecorator(listener).decorate(original);
+            driver = new EventFiringDecorator(listener).decorate(original);//driver from chrome
             logger.warn(browser);
         } else if (browser.equals(Browser.FIREFOX.browserName())) {
 //            WebDriver original = new FirefoxDriver();
 //            WebDriverListener listener = new WDListener();
 //            driver = new EventFiringDecorator(listener).decorate(original);
             FirefoxOptions options = new FirefoxOptions();
-//            options.setBinary(getFirefoxLocation());
-//            options.addArguments("-headless");
+//            options.setBinary(getFirefoxLocation());//
+//            options.addArguments("-headless");// backend without open screen
 //            FirefoxProfile profile = new FirefoxProfile();
             FirefoxBinary binary = new FirefoxBinary(new File("/opt/firefox/firefox"));
             FirefoxProfile profile = new FirefoxProfile();
             options.setProfile(profile);
-            driver = new FirefoxDriver(options);
+            driver = new FirefoxDriver(options);//driver from firefox
             logger.warn(browser);
         }
 //           driver.get("http://example.com/");
