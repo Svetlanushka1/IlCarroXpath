@@ -6,63 +6,63 @@ import userdto.UserDtoLombok;
 
 import static autotests.BaseTest.app;
 
-public class RegistrationTests extends BaseTest{
+public class RegistrationTests extends BaseTest {
 
-        @Test
-        public void positiveRegistration() {
- //           String email = randomUtils.generateEmail(7);
+    @Test
+    public void positiveRegistration() {
+        String email = randomUtils.generateEmail(7);
 
-            UserDtoLombok user = UserDtoLombok.builder()
-                    .email("email")
-                    .password("123456Aa$")
-                    .lastName("abdfg")
-                    .name("test")
-                    .build();
+        UserDtoLombok user = UserDtoLombok.builder()
+                .email("email")
+                .password("123456Aa$")
+                .lastName("abdfg")
+                .name("test")
+                .build();
 
-            app.getUserHelper().fillRegistrationForm(user);
-            Assert.assertTrue(app.getUserHelper().validatePopUpMessageSuccessAfterRegistration());
-        }
+        app.getUserHelper().fillRegistrationForm(user);
+        Assert.assertTrue(app.getUserHelper().validatePopUpMessageSuccessAfterRegistration());
+    }
 
-        //NEGATIVE REGISTRATION
-        @Test
-        public void negativeRegistrationWrongEmail() {
-            UserDtoLombok user = UserDtoLombok.builder()
-                    .email("abc@")
-                    .password("123456Aa$")
-                    .lastName("abdfg")
-                    .name("test")
-                    .build();
+    //NEGATIVE REGISTRATION
+    @Test
+    public void negativeRegistrationWrongEmail() {
+        UserDtoLombok user = UserDtoLombok.builder()
+                .email("abc@")
+                .password("123456Aa$")
+                .lastName("abdfg")
+                .name("test")
+                .build();
 
-            app.getUserHelper().fillRegistrationForm(user);
-            Assert.assertTrue(app.getUserHelper().validateMessageIncorrectEmailReg());
-        }
+        app.getUserHelper().fillRegistrationForm(user);
+        Assert.assertTrue(app.getUserHelper().validateMessageIncorrectEmailReg());
+    }
 
-        @Test
-        public void negativeRegistrationWrongPassword() {
-  //          String email = randomUtils.generateEmail(7);
+    @Test
+    public void negativeRegistrationWrongPassword() {
+        String email = randomUtils.generateEmail(7);
 
-            UserDtoLombok user = UserDtoLombok.builder()
-                    .email("email")
-                    .password("123456Aa")
-                    .lastName("abdfg")
-                    .name("test")
-                    .build();
+        UserDtoLombok user = UserDtoLombok.builder()
+                .email("email")
+                .password("123456Aa")
+                .lastName("abdfg")
+                .name("test")
+                .build();
 
-            app.getUserHelper().fillRegistrationForm(user);
-            Assert.assertTrue(app.getUserHelper().validateMessageWrongPasswordReg());
-        }
+        app.getUserHelper().fillRegistrationForm(user);
+        Assert.assertTrue(app.getUserHelper().validateMessageWrongPasswordReg());
+    }
 
-        @Test
-        public void negativeRegistrationBlankEmail() {
-            UserDtoLombok user = UserDtoLombok.builder()
-                    .email("")
-                    .password("123456Aa$")
-                    .lastName("abdfg")
-                    .name("test")
-                    .build();
+    @Test
+    public void negativeRegistrationBlankEmail() {
+        UserDtoLombok user = UserDtoLombok.builder()
+                .email("")
+                .password("123456Aa$")
+                .lastName("abdfg")
+                .name("test")
+                .build();
 
-            app.getUserHelper().fillRegistrationForm(user);
-            Assert.assertTrue(app.getUserHelper().validateErrorEmptyEmailReg());
-        }
+        app.getUserHelper().fillRegistrationForm(user);
+        Assert.assertTrue(app.getUserHelper().validateErrorEmptyEmailReg());
+    }
 
 }

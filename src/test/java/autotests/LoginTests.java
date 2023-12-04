@@ -35,9 +35,11 @@ public class LoginTests extends BaseTest {
                     .email("haifa@gmail.com")
                     .password("Haifa082022$")
                     .build();
-
+            logger.info("LombokLogin");
             app.getUserHelper().login(userDtoLombok);
             Assert.assertTrue(app.getUserHelper().validatePopUpMessageSuccessAfterLogin());
+            logger.info("Assert passed");
+
         }
 
 }

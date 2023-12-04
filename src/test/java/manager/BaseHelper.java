@@ -2,11 +2,14 @@ package manager;
 
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
 public class BaseHelper {
           WebDriver driver;
+         Logger logger = LoggerFactory.getLogger(BaseHelper.class);
 
         public BaseHelper(WebDriver driver) {
             this.driver = driver;
