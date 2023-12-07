@@ -4,12 +4,16 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.interactions.Actions;
+import userdto.UserDTO;
 import userdto.UserDTOWith;
 import userdto.UserDtoLombok;
+import utils.ConfigReader;
+import utils.ConfigProperties;
 
 public class UserHelper extends BaseHelper {
 
     By btnLoginNavigatorMenu = By.xpath("//a[contains(@href, '/login')]");
+    //By btnLoginNavigatorMenu = By.xpath(ConfigReader.getProperty("btnLoginNavigatorMenu"));
     By inputEmailLoginForm = By.xpath("//input[@id='email']");
     By inputPasswordLoginForm = By.xpath("//input[@id='password']");
     By btnYallaLoginForm = By.xpath("//button[@type='submit']");
@@ -31,8 +35,19 @@ public class UserHelper extends BaseHelper {
     By errorMessageWrongEmailReg = By.xpath("//input[@autocomplete='email']/..//div//div");
     By errorMessageIncorrectPasswordReg = By.xpath("//input[@autocomplete='new-password']/..//div//div");
 
+    By letTheCarWork=By.xpath("//*[@id=\'1\']");
     public UserHelper(WebDriver driver) {
         super(driver);
+    }
+    public void letTheCarWork(){
+    clickBase(letTheCarWork);
+
+    }
+    public void login(UserDTO userDTO) {
+        clickBase(btnLoginNavigatorMenu);
+        typeTextBase(inputEmailLoginForm, userDTO.getEmail());
+        typeTextBase(inputPasswordLoginForm, userDTO.getPassword());
+        clickBase(btnYallaLoginForm);
     }
     public void loginUserDtoLombok(UserDtoLombok user) {
         clickBase(btnLoginNavigatorMenu);

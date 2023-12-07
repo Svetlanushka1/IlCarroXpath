@@ -15,6 +15,7 @@ import org.slf4j.LoggerFactory;
 
 import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
+import sun.plugin2.util.BrowserType;
 import utils.ConfigProperties;
 
 
@@ -31,47 +32,32 @@ public class ApplicationManager {
 
     public ApplicationManager() {
         browser = System.getProperty("browser", Browser.CHROME.browserName());
+        //browser = System.getProperty("browser", BrowserType.CHROME);
         logger.info(browser);
-    }
 
+    }
     public void init() {
-//        browser = System.getProperty("browser");
-//        browser = "firefox";
+
         logger.warn(browser);
         logger.warn(Browser.CHROME.browserName());
         logger.warn(Browser.FIREFOX.browserName());
-        /*
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("--headless=new");
-       WebDriver original = new ChromeDriver(options);
-        WebDriverListener listener = new WDListener();
-        driver = new EventFiringDecorator(listener).decorate(original);
-        */
 
         if (browser.equals(Browser.CHROME.browserName())) {
             ChromeOptions options = new ChromeOptions();//new options
-            options.addArguments("--headless=new");//new object of chromeDriver
+            //options.addArguments("--headless=new");//new object of chromeDriver
             WebDriver original = new ChromeDriver(options);//made decoration up on the driver
             WebDriverListener listener = new WDListener();
             driver = new EventFiringDecorator(listener).decorate(original);//driver from chrome
             logger.warn(browser);
         } else if (browser.equals(Browser.FIREFOX.browserName())) {
-//            WebDriver original = new FirefoxDriver();
-//            WebDriverListener listener = new WDListener();
-//            driver = new EventFiringDecorator(listener).decorate(original);
+
             FirefoxOptions options = new FirefoxOptions();
-//            options.setBinary(getFirefoxLocation());//
-//            options.addArguments("-headless");// backend without open screen
-//            FirefoxProfile profile = new FirefoxProfile();
             FirefoxBinary binary = new FirefoxBinary(new File("/opt/firefox/firefox"));
             FirefoxProfile profile = new FirefoxProfile();
             options.setProfile(profile);
-            driver = new FirefoxDriver(options);//driver from firefox
+            driver = new FirefoxDriver(options);
             logger.warn(browser);
         }
-//           driver.get("http://example.com/");
-//           WebElement header = decorated.findElement(By.tagName("h1"));
-//           String headerText = header.getText();
 
 
 //        driver = new EventFiringWebDriver(new ChromeDriver()); // 2. change for get listener
@@ -79,16 +65,14 @@ public class ApplicationManager {
 //        options.addArguments("--headless=new");
 //        driver = new EventFiringWebDriver(new ChromeDriver(options)); // 2. change for get listener
 
-
-//        driver.navigate().to("https://ilcarro.web.app/search");
-        driver.navigate().to(ConfigProperties.getProperty("url"));
+        driver.navigate().to(ConfigProperties.getProperty("url"));// no use hard code, use value from config file
         driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(Long.parseLong(ConfigProperties
+                .getProperty("implicitlyWait"))));
 //        driver.register(new WDListener()); // 3.  change for get listener
 
-
         userHelper = new UserHelper(driver);
-        logger.info("navigated to the https://ilcarro.web.app/searc");
+        logger.info("navigated according url value in config file");
     }
 
     public UserHelper getUserHelper() {
@@ -110,4 +94,6 @@ public class ApplicationManager {
     }
 
 
+    public void isAppLaunch(String url) {
+    }
 }

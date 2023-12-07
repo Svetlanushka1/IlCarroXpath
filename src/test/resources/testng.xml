@@ -1,0 +1,14 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Production">
+    <test name="smoke">
+        <classes>
+            <class name="tests.LoginTests"/>
+            <class name="tests.RegistrationTests"/>
+        </classes>
+    </test>
+    <!--    <test name="regression">-->
+    <!--        <classes>-->
+    <!--            <class name="tests.RegistrationTests"/>-->
+    <!--        </classes>-->
+    <!--    </test>-->
+</suite>

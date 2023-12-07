@@ -1,10 +1,10 @@
-package autotests;
+package tests;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import userdto.UserDtoLombok;
 
-import static autotests.BaseTest.app;
+
 
 public class RegistrationTests extends BaseTest {
 
