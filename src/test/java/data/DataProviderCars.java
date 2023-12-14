@@ -1,0 +1,46 @@
+package data;
+
+import org.testng.annotations.DataProvider;
+import userdto.AddCarDTO;
+import userdto.UserDtoLombok;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
+public class DataProviderCars {
+    @DataProvider
+    public Iterator<Object[]> negativeAddCarCSV(){
+        List<Object[]> list = new ArrayList<>();
+        String path = "src/test/resources/negativeAddCar.csv";
+        try(BufferedReader reader = new BufferedReader(new FileReader(path))){
+            String line = reader.readLine();
+            while(line != null){
+                String[] split = line.split(",");
+                list.add(new Object[] {
+                        AddCarDTO.builder().
+                                serialNumber(split[0])
+                                .manufacture(split[1])
+                                .model(split[2])
+                                .year(Integer.parseInt(split[3]))
+                                .fuel(split[4])
+                                .seats(Integer.parseInt(split[5]))
+                                .carClass(split[6])
+                                .pricePerDay(Double.parseDouble(split[7]))
+                                .about(split[8])
+                                .city(split[9])
+                                .build()
+                });
+                line = reader.readLine();
+            }
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+        return list.iterator();
+
+    }
+}
+

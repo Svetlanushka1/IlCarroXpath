@@ -13,9 +13,6 @@ import org.openqa.selenium.support.events.WebDriverListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import org.openqa.selenium.Capabilities;
-import org.openqa.selenium.remote.RemoteWebDriver;
-import sun.plugin2.util.BrowserType;
 import utils.ConfigProperties;
 
 
@@ -27,6 +24,7 @@ public class ApplicationManager {
     //    EventFiringWebDriver driver; // 1. change for get listener
     WebDriver driver;
     UserHelper userHelper;
+    CarHelper carHelper;
     static String browser;
 
 
@@ -72,12 +70,16 @@ public class ApplicationManager {
 //        driver.register(new WDListener()); // 3.  change for get listener
 
         userHelper = new UserHelper(driver);
+        carHelper = new CarHelper(driver);
         logger.info("navigated according url value in config file");
     }
 
     public UserHelper getUserHelper() {
 
         return userHelper;
+    }
+    public CarHelper getCarHelper(){
+        return carHelper;
     }
 
     public void tearDown() {

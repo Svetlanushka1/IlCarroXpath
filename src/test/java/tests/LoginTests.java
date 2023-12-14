@@ -34,7 +34,7 @@ public class LoginTests extends BaseTest {
         Assert.assertTrue(BaseTest.app.getUserHelper().validatePopUpMessageSuccessAfterLogin());
 
     }
-
+//TODO fix waiter Jira
     /*  @Test
         public void positiveLoginUserDTOWith() {
             UserDTOWith userDTOWith = new UserDTOWith()
