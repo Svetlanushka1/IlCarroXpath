@@ -1,19 +1,23 @@
 package tests;
 
+import data.DataProviderLogin;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.Assert;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
+
 import userdto.UserDTO;
 import userdto.UserDtoLombok;
 import utils.ConfigProperties;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
 public class LoginTests extends BaseTest {
     Logger logger = LoggerFactory.getLogger(LoginTests.class);
 
-     @BeforeMethod(alwaysRun = true)
+    @BeforeMethod(alwaysRun = true)
     public void preconditionsLogin() {
         logoutIflogin();
     }
@@ -22,6 +26,7 @@ public class LoginTests extends BaseTest {
     public void postconditionsLogin() {
         app.getUserHelper().clickOkPopUpSuccessLogin();
     }
+
     @Test(groups = {"smoke", "regression"})
     public void positiveLoginUserDTO() {
         UserDTO userDTO = new UserDTO(ConfigProperties.getProperty("email"), ConfigProperties.getProperty("password"));
@@ -29,6 +34,7 @@ public class LoginTests extends BaseTest {
         Assert.assertTrue(BaseTest.app.getUserHelper().validatePopUpMessageSuccessAfterLogin());
 
     }
+
     /*  @Test
         public void positiveLoginUserDTOWith() {
             UserDTOWith userDTOWith = new UserDTOWith()
@@ -38,18 +44,19 @@ public class LoginTests extends BaseTest {
             Assert.assertTrue(app.getUserHelper().validatePopUpMessageSuccessAfterLogin());
 
         }*/
-       @Test
-    public void positiveLoginUserDtoLombok(){
-            UserDtoLombok userDtoLombok = UserDtoLombok.builder()
-                    .email("haifa@gmail.com")
-                    .password("Haifa082022$")
-                    .build();
+    @Test
+    public void positiveLoginUserDtoLombok() {
+        UserDtoLombok userDtoLombok = UserDtoLombok.builder()
+                .email("haifa@gmail.com")
+                .password("Haifa082022$")
+                .build();
 
-            app.getUserHelper().loginUserDtoLombok(userDtoLombok);
-            Assert.assertTrue(app.getUserHelper().validatePopUpMessageSuccessAfterLogin());
-            logger.info("Assert passed");
+        app.getUserHelper().loginUserDtoLombok(userDtoLombok);
+        Assert.assertTrue(app.getUserHelper().validatePopUpMessageSuccessAfterLogin());
+        logger.info("Assert passed");
 
-        }
+    }
+
     /*
     @Test(groups = {"smoke", "regression"})
     public void positiveLoginUserDTO() {
@@ -100,7 +107,9 @@ public class LoginTests extends BaseTest {
         logger.info("testqa20@gmail.com");
         app.getUserHelper().loginUserDtoLombok(userDtoLombok);
         Assert.assertTrue(app.getUserHelper().validatePopUpMessageLoginIncorrect());
-    } @Test(priority = 1)
+    }
+
+    @Test(priority = 1)
     public void negativePasswordWithoutNumbers() {
         UserDtoLombok userDtoLombok = UserDtoLombok.builder()
                 .email("testqa20@gmail.com")
@@ -124,6 +133,15 @@ public class LoginTests extends BaseTest {
 
         Assert.assertTrue(app.getUserHelper().validatePopUpMessageLoginIncorrect());
     }
+    @Test(dataProvider = "login.csv",dataProviderClass = DataProviderLogin.class)
+    public void positiveLoginProvider(UserDtoLombok user){
+        app.getUserHelper().loginUserDtoLombok(user);
+        flagLogin = true;
+        flagPopUp = true;
+        Assert.assertTrue(app.getUserHelper().validatePopUpMessageSuccessAfterLogin());
+
+    }
+
 
 }
 

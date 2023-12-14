@@ -11,7 +11,7 @@ import java.util.Arrays;
 
 public class BaseTest {
   //  @Listeners(TestNGListener.class)
-    static ApplicationManager app = new ApplicationManager();
+  static ApplicationManager app = new ApplicationManager();
     RandomUtils randomUtils = new RandomUtils();
 
     Logger logger = LoggerFactory.getLogger(BaseTest.class);
