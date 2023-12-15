@@ -3,11 +3,11 @@ package tests;
 import org.testng.annotations.Test;
 import utils.ConfigProperties;
 
-public class LaunchAppTest extends BaseTest{
+public class LaunchAppTest extends TestBase {/*
 @Test(groups = {"smoke"})
     public void testLaunchApp() {
     app.isAppLaunch(ConfigProperties.getProperty("url"));
-    BaseTest.app.getUserHelper().letTheCarWork();
-   // Assert.assertTrue();
-}
+    TestBase.app.getUserHelper().letTheCarWork();*/
+   // Assert.assertTrue();}
+
 }

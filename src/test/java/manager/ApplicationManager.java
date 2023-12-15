@@ -13,7 +13,13 @@ import org.openqa.selenium.support.events.WebDriverListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import org.openqa.selenium.Capabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import utils.ConfigProperties;
+
+
+import java.io.File;
+import java.time.Duration;
 
 
 import java.io.File;
@@ -28,65 +34,53 @@ public class ApplicationManager {
     static String browser;
 
 
-    public ApplicationManager() {
-        browser = System.getProperty("browser", Browser.CHROME.browserName());
-        //browser = System.getProperty("browser", BrowserType.CHROME);
-        logger.info(browser);
 
+    public ApplicationManager(){
+        browser = System.getProperty("browser", Browser.CHROME.browserName());
+        logger.info(browser);
     }
     public void init() {
 
         logger.warn(browser);
         logger.warn(Browser.CHROME.browserName());
         logger.warn(Browser.FIREFOX.browserName());
-
-        if (browser.equals(Browser.CHROME.browserName())) {
-            ChromeOptions options = new ChromeOptions();//new options
-            //options.addArguments("--headless=new");//new object of chromeDriver
-            WebDriver original = new ChromeDriver(options);//made decoration up on the driver
+        if (browser.equals(Browser.CHROME.browserName())){
+            ChromeOptions options = new ChromeOptions();
+//            options.addArguments("--headless=new");
+            WebDriver original = new ChromeDriver(options);
             WebDriverListener listener = new WDListener();
-            driver = new EventFiringDecorator(listener).decorate(original);//driver from chrome
+            driver = new EventFiringDecorator(listener).decorate(original);
             logger.warn(browser);
-        } else if (browser.equals(Browser.FIREFOX.browserName())) {
-
+        } else if (browser.equals(Browser.FIREFOX.browserName())){
             FirefoxOptions options = new FirefoxOptions();
-            FirefoxBinary binary = new FirefoxBinary(new File("/opt/firefox/firefox"));
-            FirefoxProfile profile = new FirefoxProfile();
-            options.setProfile(profile);
-            driver = new FirefoxDriver(options);
+//            options.addArguments("--headless");
+            WebDriverListener listener = new WDListener();
+            WebDriver original = new FirefoxDriver(options);
+            driver = new EventFiringDecorator(listener).decorate(original);
             logger.warn(browser);
         }
 
 
-//        driver = new EventFiringWebDriver(new ChromeDriver()); // 2. change for get listener
-//        ChromeOptions options = new ChromeOptions();
-//        options.addArguments("--headless=new");
-//        driver = new EventFiringWebDriver(new ChromeDriver(options)); // 2. change for get listener
-
-        driver.navigate().to(ConfigProperties.getProperty("url"));// no use hard code, use value from config file
+        driver.navigate().to(ConfigProperties.getProperty("url"));
         driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(Long.parseLong(ConfigProperties
-                .getProperty("implicitlyWait"))));
-//        driver.register(new WDListener()); // 3.  change for get listener
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(Long.parseLong((ConfigProperties.getProperty("implicitlyWait")))));
+
+
 
         userHelper = new UserHelper(driver);
         carHelper = new CarHelper(driver);
-        logger.info("navigated according url value in config file");
+        logger.info("navigated to the https://ilcarro.web.app/search");
     }
 
-    public UserHelper getUserHelper() {
+    public UserHelper getUserHelper(){return userHelper;}
 
-        return userHelper;
-    }
-    public CarHelper getCarHelper(){
-        return carHelper;
-    }
+    public CarHelper getCarHelper() {return carHelper;}
 
     public void tearDown() {
         driver.quit();
     }
 
-    public void navigateToMainPage() {
+    public void navigateToMainPage(){
         driver.navigate().to(ConfigProperties.getProperty("url"));
     }
 
@@ -96,7 +90,4 @@ public class ApplicationManager {
         return urlCurrent.equals(ConfigProperties.getProperty("url"));
     }
 
-
-    public void isAppLaunch(String url) {
-    }
 }

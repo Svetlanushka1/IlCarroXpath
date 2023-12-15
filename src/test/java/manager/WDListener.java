@@ -2,59 +2,187 @@ package manager;
 
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Sequence;
-import org.openqa.selenium.support.events.WebDriverEventListener;
+import org.openqa.selenium.support.events.AbstractWebDriverEventListener;
 import org.openqa.selenium.support.events.WebDriverListener;
-import com.google.common.io.Files;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import utils.DatesUtils;
 
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.URL;
-import java.text.SimpleDateFormat;
 import java.time.Duration;
-import java.util.Calendar;
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
-public class WDListener implements WebDriverListener {
+import com.google.common.io.Files;
+
+public class WDListener extends AbstractWebDriverEventListener implements WebDriverListener {
     Logger logger = LoggerFactory.getLogger(WDListener.class);
     public WDListener(){
+
         super();
     }
-    private void takeScreenshot(TakesScreenshot takesScreenshot) {
-        String timestamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());
-        String fileName = "src/test/screenshots/screenshot-" + timestamp + ".png";
-        logger.info("Create screenshot: " + fileName);
+    @Override
+    public void onException(Throwable throwable, WebDriver driver) {
+        super.onException(throwable, driver);
+        logger.info("we got an exception: " + throwable.toString());
+        logger.error("with the message: " + throwable.getMessage());
+        String name = "src/test/screenshots/screenshot-" + DatesUtils.getDateString() + ".png";
+        takeScreenshot((TakesScreenshot)driver, name);
+        logger.info("see screenshot: " + name);
+    }
+
+    private void takeScreenshot(TakesScreenshot takeScreenshot, String name) {
         try {
-            File tmp = takesScreenshot.getScreenshotAs(OutputType.FILE);
-            File screenshot = new File(fileName);
-            Files.copy(tmp,screenshot);
-        } catch (IOException e){
-            e.printStackTrace();
-            logger.error(e.getMessage());
+            File tmp = takeScreenshot.getScreenshotAs(OutputType.FILE);
+            File screenshot = new File(name);
+            Files.copy(tmp, screenshot);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
     @Override
-    public void beforeFindElement(WebDriver driver, By locator) {
-        WebDriverListener.super.beforeFindElement(driver, locator);
-        takeScreenshot((TakesScreenshot)driver);
+    public void afterFindBy(By locator, WebElement element, WebDriver driver) {
+        super.afterFindBy(locator, element, driver);
+        logger.info("The element with locator " + locator + " is found");
+    }
+    @Override
+    public void beforeFindBy(By by, WebElement element, WebDriver driver) {
+        super.beforeFindBy(by, element, driver);
+        logger.info("Start searching element by locator " + by);
     }
 
     @Override
-    public void afterFindElement(WebDriver driver, By locator, WebElement result) {
-        WebDriverListener.super.afterFindElement(driver, locator, result);
-        takeScreenshot((TakesScreenshot)driver);
+    public void beforeAlertAccept(WebDriver driver) {
+        super.beforeAlertAccept(driver);
     }
 
     @Override
-    public void beforeFindElements(WebDriver driver, By locator) {
-        WebDriverListener.super.beforeFindElements(driver, locator);
-        takeScreenshot((TakesScreenshot)driver);
+    public void afterAlertAccept(WebDriver driver) {
+        super.afterAlertAccept(driver);
     }
+
+    @Override
+    public void afterAlertDismiss(WebDriver driver) {
+        super.afterAlertDismiss(driver);
+    }
+
+    @Override
+    public void beforeAlertDismiss(WebDriver driver) {
+        super.beforeAlertDismiss(driver);
+    }
+    @Override
+    public void beforeNavigateTo(String url, WebDriver driver) {
+        super.beforeNavigateTo(url, driver);
+        logger.info("try to navigate to url: " + url + " from the url: " + driver.getCurrentUrl());
+    }
+
+    @Override
+    public void afterNavigateTo(String url, WebDriver driver) {
+        super.afterNavigateTo(url, driver);
+        logger.info("navigation to the url: " + url + " success");
+    }
+
+
+    @Override
+    public void beforeClickOn(WebElement element, WebDriver driver) {
+        super.beforeClickOn(element, driver);
+        logger.info("before click on: " + element.toString());
+    }
+
+    @Override
+    public void afterClickOn(WebElement element, WebDriver driver) {
+        super.afterClickOn(element, driver);
+        logger.info("after click on: " + element.toString());
+    }
+    @Override
+    public void beforeScript(String script, WebDriver driver) {
+        super.beforeScript(script, driver);
+        // js executor
+        logger.info("before implement the script: " + script);
+    }
+
+    @Override
+    public void afterScript(String script, WebDriver driver) {
+        super.afterScript(script, driver);
+        logger.info("after implement the script: " + script);
+    }
+    @Override
+    public void beforeGetText(WebElement element, WebDriver driver) {
+        super.beforeGetText(element, driver);
+        logger.info("before get text from the element: " + element.toString());
+    }
+
+    @Override
+    public void afterGetText(WebElement element, WebDriver driver, String text) {
+        super.afterGetText(element, driver, text);
+        logger.info("after get text from the element: " + element.toString());
+    }
+
+    @Override
+    public void beforeNavigateBack(WebDriver driver) {
+        super.beforeNavigateBack(driver);
+    }
+
+    @Override
+    public void afterNavigateBack(WebDriver driver) {
+        super.afterNavigateBack(driver);
+    }
+
+    @Override
+    public void beforeNavigateForward(WebDriver driver) {
+        super.beforeNavigateForward(driver);
+    }
+
+    @Override
+    public void afterNavigateForward(WebDriver driver) {
+        super.afterNavigateForward(driver);
+    }
+
+    @Override
+    public void beforeNavigateRefresh(WebDriver driver) {
+        super.beforeNavigateRefresh(driver);
+    }
+
+    @Override
+    public void afterNavigateRefresh(WebDriver driver) {
+        super.afterNavigateRefresh(driver);
+    }
+
+    @Override
+    public void beforeChangeValueOf(WebElement element, WebDriver driver, CharSequence[] keysToSend) {
+        super.beforeChangeValueOf(element, driver, keysToSend);
+    }
+
+    @Override
+    public void afterChangeValueOf(WebElement element, WebDriver driver, CharSequence[] keysToSend) {
+        super.afterChangeValueOf(element, driver, keysToSend);
+    }
+
+    @Override
+    public void afterSwitchToWindow(String windowName, WebDriver driver) {
+        super.afterSwitchToWindow(windowName, driver);
+    }
+
+    @Override
+    public void beforeSwitchToWindow(String windowName, WebDriver driver) {
+        super.beforeSwitchToWindow(windowName, driver);
+    }
+
+    @Override
+    public <X> void beforeGetScreenshotAs(OutputType<X> target) {
+        super.beforeGetScreenshotAs(target);
+    }
+
+    @Override
+    public <X> void afterGetScreenshotAs(OutputType<X> target, X screenshot) {
+        super.afterGetScreenshotAs(target, screenshot);
+    }
+
     @Override
     public void beforeAnyCall(Object target, Method method, Object[] args) {
         WebDriverListener.super.beforeAnyCall(target, method, args);
@@ -110,7 +238,20 @@ public class WDListener implements WebDriverListener {
         WebDriverListener.super.afterGetTitle(driver, result);
     }
 
+    @Override
+    public void beforeFindElement(WebDriver driver, By locator) {
+        WebDriverListener.super.beforeFindElement(driver, locator);
+    }
 
+    @Override
+    public void afterFindElement(WebDriver driver, By locator, WebElement result) {
+        WebDriverListener.super.afterFindElement(driver, locator, result);
+    }
+
+    @Override
+    public void beforeFindElements(WebDriver driver, By locator) {
+        WebDriverListener.super.beforeFindElements(driver, locator);
+    }
 
     @Override
     public void afterFindElements(WebDriver driver, By locator, List<WebElement> result) {

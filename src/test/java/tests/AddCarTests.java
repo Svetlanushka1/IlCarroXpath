@@ -1,22 +1,18 @@
 package tests;
 
 import data.DataProviderCars;
-import data.DataProviderLogin;
 import org.testng.Assert;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Test;
-import tests.BaseTest;
+import org.testng.annotations.*;
 import userdto.AddCarDTO;
 import userdto.UserDtoLombok;
 
 import java.util.Random;
 
-public class CarTests extends BaseTest {
-    @BeforeClass
+public class AddCarTests extends TestBase {/*
+    @BeforeMethod
     public void loginPreConditions() {
         app.navigateToMainPage();
-        app.getUserHelper().loginUserDtoLombok(user);
+        app.getUserHelper().loginUserDtoLombok(userDtoLombok);
         app.getUserHelper().clickOkPopUpSuccessLogin();
     }
 
@@ -25,15 +21,16 @@ public class CarTests extends BaseTest {
 
         Random random = new Random();
         String serNumber = String.valueOf(Math.round(random.nextFloat() * Math.pow(10,12)));
+        //int i = (int) ((System.currentTimeMillis() / 1000) % 3600);
         AddCarDTO car = AddCarDTO.builder()
                 .serialNumber(serNumber)
-                .manufacture("opelqa20")
-                .model("corsa")
-                .year(1999)
-                .fuel("Diesel")
-                .seats(2)
-                .carClass("jsdfh")
-                .pricePerDay(20)
+                .manufacture("Toyota Camry2")
+                .model("Sedan")
+                .year(2023)
+                .fuel("Hybrid")
+                .seats(4)
+                .carClass("luxury")
+                .pricePerDay(400)
                 .city("Tel Aviv")
                 .build();
         // Tel Aviv, Israel
@@ -42,7 +39,7 @@ public class CarTests extends BaseTest {
         Assert.assertTrue(app.getCarHelper().validateMessagePopUp());
     }
 
-    @AfterClass
+    @AfterMethod
     public void logoutAfterConditions() {
         app.getCarHelper().clickAddNewCarPopUp();
         app.getUserHelper().logout();
@@ -55,5 +52,6 @@ public class CarTests extends BaseTest {
         flagPopUp = true;
         Assert.assertTrue(app.getUserHelper().validatePopUpMessageSuccessAfterLogin());
 
-    }
+    }*/
+    //span[@class='pac-item-query']
 }

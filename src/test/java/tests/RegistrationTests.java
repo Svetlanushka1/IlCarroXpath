@@ -6,8 +6,8 @@ import userdto.UserDtoLombok;
 
 
 
-public class RegistrationTests extends BaseTest {
-
+public class RegistrationTests extends TestBase {
+/*
     @Test
     public void positiveRegistration() {
         String email = randomUtils.generateEmail(7);
@@ -64,5 +64,5 @@ public class RegistrationTests extends BaseTest {
         app.getUserHelper().fillRegistrationForm(user);
         Assert.assertTrue(app.getUserHelper().validateErrorEmptyEmailReg());
     }
-
+*/
 }

@@ -20,6 +20,9 @@ public class CarHelper extends BaseHelper{
         super(driver);
     }
 
+
+
+
   /*  By inputLocation = By.xpath(CarConfigReader.getProperty("inputLocationXPath"));
     By manufacture = By.id(CarConfigReader.getProperty("manufactureId"));
     By model = By.id(CarConfigReader.getProperty("model"));
@@ -51,7 +54,7 @@ public class CarHelper extends BaseHelper{
         return isTextEqual(textPopupTitle,"Car added".trim().toUpperCase());
     }*/
 
-
+/*
         By btnAddNewCarMenu = By.xpath("//a[contains(@href,'let-car-work')]");
         By inputManifacture = By.xpath("//input[@id='make']");
         By inputModel = By.xpath("//input[@id='model']");
@@ -137,6 +140,10 @@ public class CarHelper extends BaseHelper{
 //        builder.moveToElement(autoCompleteResult).perform();
             builder.sendKeys(Keys.ARROW_DOWN).sendKeys(Keys.ENTER).build().perform();
         }
-
+       public boolean isElementPresent(By locator, int waitTime, String text){
+            return new WebDriverWait(driver,waitTime)
+                    .until(ExpectedConditions.textToBePresentInElement(driver.findElement(locator),text));
+        }
+*/
 }
 

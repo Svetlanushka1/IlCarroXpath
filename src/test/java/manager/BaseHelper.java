@@ -1,17 +1,23 @@
 package manager;
 
+import com.google.common.io.Files;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import utils.DatesUtils;
 
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.time.Duration;
+import java.util.Calendar;
 import java.util.List;
 
 public class BaseHelper {
     WebDriver driver;
-   // Logger logger = LoggerFactory.getLogger(BaseHelper.class);
+   Logger logger = LoggerFactory.getLogger(BaseHelper.class);
 
     public BaseHelper(WebDriver driver) {
 
@@ -78,4 +84,11 @@ public class BaseHelper {
 
 
     public void refreshPage() {driver.navigate().refresh();}
+
+
+
+
+
+
+
 }

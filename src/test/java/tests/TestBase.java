@@ -4,24 +4,25 @@ import manager.ApplicationManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.annotations.*;
+import userdto.UserDtoLombok;
 import utils.RandomUtils;
 
 import java.lang.reflect.Method;
 import java.util.Arrays;
 
-public class BaseTest {
+public class TestBase {
   //  @Listeners(TestNGListener.class)
   static ApplicationManager app = new ApplicationManager();
     RandomUtils randomUtils = new RandomUtils();
 
-    Logger logger = LoggerFactory.getLogger(BaseTest.class);
+    Logger logger = LoggerFactory.getLogger(TestBase.class);
    boolean flagLogin = false, flagPopUp = false;
 
- /*   UserDtoLombok userDtoLombok = UserDtoLombok.builder()
+   UserDtoLombok userDtoLombok = UserDtoLombok.builder()
             .email("haifa@gmail.com")
             .password("Haifa082022$")
             .build();
-*/
+
     @BeforeSuite(alwaysRun = true)
     public void setup() {
         logger.info("open browser");
