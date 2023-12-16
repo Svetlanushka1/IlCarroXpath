@@ -2,7 +2,7 @@
 <suite name="quick">
     <test name="quick">
         <classes>
-            <class name="tests.SearchTests"/>
+            <class name="tests.LoginTests"/>
         </classes>
     </test>
 </suite>
