@@ -33,7 +33,8 @@ public class LoginTests extends TestBase {
         Assert.assertTrue(TestBase.app.getUserHelper().validatePopUpMessageSuccessAfterLogin());
         logger.info("login using production PROPERTIES file");
     }
-    @Test(dataProvider = "login.csv",dataProviderClass = DataProviderLogin.class)
+   // @Test(dataProvider = "datalogin.csv",dataProviderClass = DataProviderLogin.class)
+    @Test(dataProvider = "loginCSV",dataProviderClass = DataProviderLogin.class)
     public void positiveLoginProvider(UserDtoLombok user){
         logger.info("User: " + user.toString());
         app.getUserHelper().loginUserDtoLombok(user);
