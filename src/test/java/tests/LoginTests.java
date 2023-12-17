@@ -34,7 +34,7 @@ public class LoginTests extends TestBase {
         logger.info("login using production PROPERTIES file");
     }
    // @Test(dataProvider = "datalogin.csv",dataProviderClass = DataProviderLogin.class)
-    @Test(dataProvider = "loginCSV",dataProviderClass = DataProviderLogin.class)
+    @Test(groups = {"smoke"}, dataProvider = "loginCSV",dataProviderClass = DataProviderLogin.class)
     public void positiveLoginProvider(UserDtoLombok user){
         logger.info("User: " + user.toString());
         app.getUserHelper().loginUserDtoLombok(user);
