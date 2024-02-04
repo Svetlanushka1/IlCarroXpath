@@ -1,28 +1,17 @@
 package manager;
 
+import com.sun.org.slf4j.internal.Logger;
+import com.sun.org.slf4j.internal.LoggerFactory;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.firefox.FirefoxBinary;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
-import org.openqa.selenium.firefox.FirefoxProfile;
 import org.openqa.selenium.remote.Browser;
 import org.openqa.selenium.support.events.EventFiringDecorator;
 import org.openqa.selenium.support.events.WebDriverListener;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import org.openqa.selenium.Capabilities;
-import org.openqa.selenium.remote.RemoteWebDriver;
 import utils.ConfigProperties;
 
-
-import java.io.File;
-import java.time.Duration;
-
-
-import java.io.File;
 import java.time.Duration;
 
 public class ApplicationManager {
@@ -37,7 +26,7 @@ public class ApplicationManager {
 
     public ApplicationManager(){
         browser = System.getProperty("browser", Browser.CHROME.browserName());
-        logger.info(browser);
+       // logger.info(browser);
     }
     public void init() {
 
@@ -69,7 +58,7 @@ public class ApplicationManager {
 
         userHelper = new UserHelper(driver);
         carHelper = new CarHelper(driver);
-        logger.info("navigated to the https://ilcarro.web.app/search");
+       // logger.info("navigated to the https://ilcarro.web.app/search");
     }
 
     public UserHelper getUserHelper(){return userHelper;}
